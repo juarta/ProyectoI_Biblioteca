@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Contacto";
+}
+
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<style>
+
+    .contacto-datos {
+        display: flex;
+        align-items: flex-start;
+    }
+
+     .contacto-imagen {
+        flex: 0 0 auto;
+        margin-left: 20px;
+        max-width: 200px;
+    }
+         .contacto-imagen img {
+            max-width: 100%;
+            height: auto;
+        }
+</style>
+<div class="contacto-datos">
+    <address>
+        <strong>Nombre del Estudiante:</strong> Juan Carlos Artavia Solano<br />
+        <strong>Número de cédula:</strong> 304360859<br />
+        <strong>Sede Universitaria:</strong> Cartago<br />
+        <strong>Fecha de entrega:</strong> 10-07-2023<br />
+        <strong>Profesor:</strong> Norberth Brunner Agüero
+    </address>
+
+    <div class="contacto-imagen">
+        <img src="~/Imagines/Sede.jpg" />
+       
+    </div>
+
+    </div>
+<address>
+    <strong>Soporte:</strong>   <a href="mailto:juarta@hotmail.com"> juarta@hotmail.com</a><br />
+
+</address>

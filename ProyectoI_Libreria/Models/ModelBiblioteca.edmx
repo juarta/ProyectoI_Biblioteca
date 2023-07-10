@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProyectoIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="20" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="100" />
+          <Property Name="CasaEditorial" Type="nvarchar" MaxLength="100" />
+          <Property Name="NumeroEdicion" Type="int" />
+          <Property Name="Autor" Type="nvarchar" MaxLength="100" />
+          <Property Name="CantidadDisponible" Type="int" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CedulaIdentidad" Type="nvarchar" MaxLength="20" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPersona" Type="int" />
+          <Property Name="IdLibro" Type="int" />
+          <Property Name="FechaPrestamo" Type="datetime" />
+          <Property Name="FechaDevolucion" Type="datetime" />
+          <Property Name="Devuelto" Type="bit" />
+          <Property Name="FechaDevolucionReal" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Prestamos__IdLib__6383C8BA">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prestamos__IdPer__628FA481">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InsertarLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ISBN" Type="nvarchar" Mode="In" />
+          <Parameter Name="Titulo" Type="nvarchar" Mode="In" />
+          <Parameter Name="CasaEditorial" Type="nvarchar" Mode="In" />
+          <Parameter Name="NumeroEdicion" Type="int" Mode="In" />
+          <Parameter Name="Autor" Type="nvarchar" Mode="In" />
+          <Parameter Name="CantidadDisponible" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertarSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CedulaIdentidad" Type="nvarchar" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Apellidos" Type="nvarchar" Mode="In" />
+          <Parameter Name="FechaRegistro" Type="datetime" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PrestarLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
+          <Parameter Name="IdLibro" Type="int" Mode="In" />
+          <Parameter Name="FechaPrestamo" Type="datetime" Mode="In" />
+          <Parameter Name="FechaDevolucion" Type="datetime" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="ProyectoIModelStoreContainer">
+          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Prestamos__IdLib__6383C8BA" Association="Self.FK__Prestamos__IdLib__6383C8BA">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prestamos__IdPer__628FA481" Association="Self.FK__Prestamos__IdPer__628FA481">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProyectoIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ISBN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CasaEditorial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroEdicion" Type="Int32" />
+          <Property Name="Autor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CantidadDisponible" Type="Int32" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK__Prestamos__IdLib__6383C8BA" FromRole="Libros" ToRole="Prestamos" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CedulaIdentidad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Prestamos" Relationship="Self.FK__Prestamos__IdPer__628FA481" FromRole="Personas" ToRole="Prestamos" />
+        </EntityType>
+        <EntityType Name="Prestamos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersona" Type="Int32" />
+          <Property Name="IdLibro" Type="Int32" />
+          <Property Name="FechaPrestamo" Type="DateTime" Precision="3" />
+          <Property Name="FechaDevolucion" Type="DateTime" Precision="3" />
+          <Property Name="Devuelto" Type="Boolean" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK__Prestamos__IdLib__6383C8BA" FromRole="Prestamos" ToRole="Libros" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Prestamos__IdPer__628FA481" FromRole="Prestamos" ToRole="Personas" />
+          <Property Name="FechaDevolucionReal" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK__Prestamos__IdLib__6383C8BA">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prestamos__IdPer__628FA481">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="Prestamos" Type="Self.Prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prestamos">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoIEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Libros" EntityType="Self.Libros" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" />
+          <EntitySet Name="Prestamos" EntityType="Self.Prestamos" />
+          <AssociationSet Name="FK__Prestamos__IdLib__6383C8BA" Association="Self.FK__Prestamos__IdLib__6383C8BA">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prestamos__IdPer__628FA481" Association="Self.FK__Prestamos__IdPer__628FA481">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Prestamos" EntitySet="Prestamos" />
+          </AssociationSet>
+          <FunctionImport Name="InsertarLibro">
+            <Parameter Name="ISBN" Mode="In" Type="String" />
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="CasaEditorial" Mode="In" Type="String" />
+            <Parameter Name="NumeroEdicion" Mode="In" Type="Int32" />
+            <Parameter Name="Autor" Mode="In" Type="String" />
+            <Parameter Name="CantidadDisponible" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertarSocio">
+            <Parameter Name="CedulaIdentidad" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellidos" Mode="In" Type="String" />
+            <Parameter Name="FechaRegistro" Mode="In" Type="DateTime" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PrestarLibro">
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+            <Parameter Name="FechaPrestamo" Mode="In" Type="DateTime" />
+            <Parameter Name="FechaDevolucion" Mode="InOut" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProyectoIModelStoreContainer" CdmEntityContainer="ProyectoIEntities1">
+          <EntitySetMapping Name="Libros">
+            <EntityTypeMapping TypeName="ProyectoIModel.Libros">
+              <MappingFragment StoreEntitySet="Libros">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="CasaEditorial" ColumnName="CasaEditorial" />
+                <ScalarProperty Name="NumeroEdicion" ColumnName="NumeroEdicion" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="CantidadDisponible" ColumnName="CantidadDisponible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="ProyectoIModel.Personas">
+              <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CedulaIdentidad" ColumnName="CedulaIdentidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prestamos">
+            <EntityTypeMapping TypeName="ProyectoIModel.Prestamos">
+              <MappingFragment StoreEntitySet="Prestamos">
+                <ScalarProperty Name="FechaDevolucionReal" ColumnName="FechaDevolucionReal" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="FechaPrestamo" ColumnName="FechaPrestamo" />
+                <ScalarProperty Name="FechaDevolucion" ColumnName="FechaDevolucion" />
+                <ScalarProperty Name="Devuelto" ColumnName="Devuelto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertarLibro" FunctionName="ProyectoIModel.Store.InsertarLibro" />
+          <FunctionImportMapping FunctionImportName="InsertarSocio" FunctionName="ProyectoIModel.Store.InsertarSocio" />
+          <FunctionImportMapping FunctionImportName="PrestarLibro" FunctionName="ProyectoIModel.Store.PrestarLibro" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

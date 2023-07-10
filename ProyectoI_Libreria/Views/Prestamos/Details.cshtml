@@ -1,0 +1,99 @@
+﻿@model ProyectoI_Libreria.Models.Prestamos
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Prestamos</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Personas.CedulaIdentidad)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Personas.CedulaIdentidad)
+            </dd>
+
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Personas.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Personas.Nombre)  @Html.DisplayFor(model => model.Personas.Apellidos)
+            </dd>
+
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Libros.ISBN)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Libros.ISBN)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Libros.Titulo)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Libros.Titulo)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Libros.NumeroEdicion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Libros.NumeroEdicion)
+            </dd>
+
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.FechaPrestamo)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FechaPrestamo)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.FechaDevolucion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FechaDevolucion)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Devuelto)
+            </dt>
+            <dd class="col-sm-9">
+                @if ((bool)Model.Devuelto)
+                {
+                    <span class="text-success"><i class="fa fa-check"></i> Sí</span>
+                    <span >Fecha de entrega: </span> @Html.DisplayFor(model => model.FechaDevolucionReal)
+                }
+                else
+                {
+                    <span class="text-danger"><i class="fa fa-times"></i> No</span>
+                }
+            </dd>
+
+
+
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+
+
+    @if (!(bool)Model.Devuelto)
+    {
+        @Html.ActionLink("Recibir", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    }
+   
+    @Html.ActionLink("Regresar a la lista", "Index", new { @class = "btn btn-secondary" })
+</div>

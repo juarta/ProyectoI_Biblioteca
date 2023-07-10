@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ProyectoI_Libreria.Models.Libros>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .table-rounded {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+</style>
+
+<h2>Libros</h2>
+
+<p>
+    @Html.ActionLink("Agregar un nuevo libro", "Create")
+</p>
+
+<table class="table table-striped table-rounded">
+    <thead style="background-color: #337ab7; color: white;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasaEditorial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroEdicion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadDisponible)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasaEditorial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroEdicion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadDisponible)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) 
+                @*@Html.ActionLink("Eliminar", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>

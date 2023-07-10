@@ -1,0 +1,105 @@
+﻿@model ProyectoI_Libreria.Models.Prestamos
+
+@{
+    ViewBag.Title = "Agregar préstamo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Crear nuevo préstamo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Préstamos</h4>
+    <hr />
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <strong>Error al guardar el registro:</strong> @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IdPersona, ViewBag.IdPersona as SelectList, "Seleccione una persona", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IdPersona, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdLibro, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IdLibro, ViewBag.IdLibro as SelectList, "Seleccione un libro", new { @class = "form-control", @id = "ddlIdLibro" })
+            <span id="cantidadLibrosDisponibles" class="text-muted"></span>
+            @Html.ValidationMessageFor(model => model.IdLibro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaDevolucion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                @Html.EditorFor(model => model.FechaDevolucion, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.FechaDevolucion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Devuelto, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.RadioButtonFor(model => model.Devuelto, true, new { @disabled = "disabled" }) Sí
+            @Html.RadioButtonFor(model => model.Devuelto, false, new { @checked = "checked", @readonly = "readonly" }) No
+            @Html.ValidationMessageFor(model => model.Devuelto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            obtenerCantidadLibrosDisponibles();
+
+            $('#ddlIdLibro').change(function () {
+                obtenerCantidadLibrosDisponibles();
+            });
+
+            function obtenerCantidadLibrosDisponibles() {
+                var idLibro = $('#ddlIdLibro').val();
+                if (idLibro) {
+                    $.ajax({
+                        url: '/Prestamos/ObtenerCantidadLibrosDisponibles',
+                        type: 'GET',
+                        data: { idLibro: idLibro },
+                        success: function (data) {
+                            $('#cantidadLibrosDisponibles').text('Cantidad de Libros disponibles: ' + data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                } else {
+                    $('#cantidadLibrosDisponibles').text('');
+                }
+            }
+        });
+    </script>
+}

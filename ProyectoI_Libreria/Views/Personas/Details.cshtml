@@ -1,0 +1,77 @@
+﻿@model ProyectoI_Libreria.Models.Personas
+
+@{
+    ViewBag.Title = "Detalle del socio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle</h2>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Información del socio:</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CedulaIdentidad)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CedulaIdentidad)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Apellidos)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Apellidos)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaRegistro)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaRegistro)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </dt>
+                    <dd>
+                        @if (Model.Estado.HasValue && Model.Estado.Value)
+                        {
+                            <span class="text-success"><i class="fa fa-check"></i> Activo</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger"><i class="fa fa-times"></i> Inactivo</span>
+                        }
+                    </dd>
+
+                    @if (Model.Estado.HasValue && Model.Estado.Value)
+                    {
+                        <dt>
+                            Fecha de entrega
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FechaRegistro)
+                        </dd>
+                    }
+                </dl>
+            </div>
+        </div>
+    </div>
+</section>
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Regresar a la lista", "Index", new { @class = "btn btn-default" })
+</p>

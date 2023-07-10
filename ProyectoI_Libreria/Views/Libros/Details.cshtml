@@ -1,0 +1,67 @@
+﻿@model ProyectoI_Libreria.Models.Libros
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Libros</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CasaEditorial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CasaEditorial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroEdicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroEdicion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadDisponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadDisponible)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Regresar a la lista", "Index", new { @class = "btn btn-default" })
+</p>

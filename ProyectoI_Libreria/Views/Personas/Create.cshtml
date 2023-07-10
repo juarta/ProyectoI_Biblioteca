@@ -1,0 +1,75 @@
+﻿@model ProyectoI_Libreria.Models.Personas
+
+@{
+    ViewBag.Title = "Ingresar Socio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ingresar Socio</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <h4>Persona Asociada</h4>
+                <hr />
+
+                if (!ViewData.ModelState.IsValid)
+                {
+        <div class="alert alert-danger">
+            <strong>Error al guardar el registro:</strong> @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CedulaIdentidad, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CedulaIdentidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CedulaIdentidad, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Estado:</label>
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButtonFor(model => model.Estado, true) Activo
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButtonFor(model => model.Estado, false) Inactivo
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Agregar" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div>
+   @Html.ActionLink("Regresar a la lista", "Index", null, new { @class = "btn btn-default" })
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+    

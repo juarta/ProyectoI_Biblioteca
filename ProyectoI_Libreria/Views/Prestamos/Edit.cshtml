@@ -1,0 +1,154 @@
+﻿@model ProyectoI_Libreria.Models.Prestamos
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Recibir libro</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Prestamos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.IdPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdPersona", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdPersona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdPersona", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.IdPersona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdLibro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdLibro", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.IdLibro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.IdLibro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdLibro", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdLibro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaPrestamo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    @Html.EditorFor(model => model.FechaPrestamo, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.FechaPrestamo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.FechaPrestamo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    @Html.EditorFor(model => model.FechaPrestamo, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.FechaPrestamo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaDevolucion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    @Html.EditorFor(model => model.FechaDevolucion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.FechaDevolucion, "", new { @class = "text-danger" })
+                <span id="fechaAdvertencia" class="text-danger" style="display: none;">Hay un retraso en la fecha de devolución.</span>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.FechaDevolucion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    @Html.EditorFor(model => model.FechaDevolucion, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.FechaDevolucion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaDevolucionReal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    @Html.EditorFor(model => model.FechaDevolucionReal, new { htmlAttributes = new { @class = "form-control", id = "FechaDevolucionReal" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.FechaDevolucionReal, "", new { @class = "text-danger" })
+                <span id="fechaAdvertencia" class="text-danger" style="display: none;">Hay un retraso en la fecha de devolución.</span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Devuelto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="Devuelto" value="true" />
+                <span class="text-success">Sí</span>
+                @Html.ValidationMessageFor(model => model.Devuelto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#FechaDevolucionReal").on("blur", function () {
+                var fechaDevolucion = $("#FechaDevolucion").val();
+                var fechaDevolucionReal = $(this).val();
+
+                if (fechaDevolucionReal < fechaDevolucion) {
+                    $("#fechaAdvertencia").show();
+                } else {
+                    $("#fechaAdvertencia").hide();
+                }
+            });
+        });
+    </script>
+}
